@@ -173,13 +173,13 @@ yarn test
 or
 
 ```bash
-yarn test
+npm run test
 ```
 
 For test coverage:
 
 ```bash
-npm run test  --coverage
+yarn test  --coverage
 ```
 
 or
