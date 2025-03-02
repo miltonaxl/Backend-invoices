@@ -27,10 +27,6 @@ describe('Clients E2E Tests', () => {
             email: 'test@creation.com',
         });
 
-        console.log("******************* response.body *******************");
-
-        console.log(response.body);
-
         expect(response.status).toBe(201);
         expect(response.body.name).toBe('Test Client');
 

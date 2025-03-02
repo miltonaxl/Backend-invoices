@@ -18,8 +18,8 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "test:unit": "jest --testMatch='<rootDir>/src/**/__tests__/unit/**/*.test.ts' --detectOpenHandles",
-    "test:e2e": "NODE_ENV=test jest --testMatch='<rootDir>/src/**/__tests__/e2e/**/*.test.ts' --detectOpenHandles` "
+    "test:unit": "TEST_TYPE=e2e jest --testMatch='<rootDir>/src/**/__tests__/unit/**/*.test.ts' --detectOpenHandles",
+    "test:e2e": "NODE_ENV=test TEST_TYPE=e2e jest --testMatch='<rootDir>/src/**/__tests__/e2e/**/*.test.ts' --detectOpenHandles "
   },
   "dependencies": {
     "dotenv": "^16.4.7",

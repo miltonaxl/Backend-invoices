@@ -34,9 +34,7 @@ export const connectDatabase = async () => {
 
     if (!AppDataSource.isInitialized) {
         try {
-            console.log("🔄 Attempting to connect to database...");
             await AppDataSource.initialize();
-            console.log("✅ Database connection established.");
         } catch (error) {
             console.log("❌  You're trying to connect to the database...");
         }

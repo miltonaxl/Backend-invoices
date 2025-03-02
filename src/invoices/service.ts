@@ -51,26 +51,25 @@ export class InvoicesService {
             });
             const savedInvoice = await manager.getRepository(Invoice).save(invoice);
 
-            try {
-                await this.sendInvoiceToDIAN(savedInvoice);
-            } catch (error) {
-                if (error instanceof Error) {
-                    console.error('❌ DIAN service failed:', error.message);
-                } else {
-                    console.error('❌ DIAN service failed:', error);
-                }
-                throw new BadRequestError('Failed to send invoice to DIAN');
-            }
+
+            await this.sendInvoiceToDIAN(savedInvoice);
+
 
             return savedInvoice;
         });
     }
 
     async getInvoiceById(id: number): Promise<Invoice | null> {
-        return this.invoiceRepository.findOne({
+        const invoice = await this.invoiceRepository.findOne({
             where: { id },
             relations: ["client", "items", "items.product"],
         });
+
+        if (!invoice) throw new NotFoundError('Invoice not found');
+
+        return invoice;
+
+
     }
 
     async getAllInvoices(): Promise<Invoice[]> {
