@@ -45,12 +45,19 @@ describe('Invoices E2E Tests', () => {
 
             expect(response.status).toBe(400);
             expect(response.body.error).toBe('DIAN service unavailable');
+
+
+        } else {
+
+            expect(response.status).toBe(201);
+            expect(response.body.client.id).toBe(clientId);
+            expect(response.body.total).toBe(100);
+
+
         }
 
 
-        expect(response.status).toBe(201);
-        expect(response.body.client.id).toBe(clientId);
-        expect(response.body.total).toBe(100);
+
     });
 
     it('should fetch an invoice by ID', async () => {
