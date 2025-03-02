@@ -131,7 +131,7 @@ npm run start
 ## 1️⃣ Build and Run the Application
 
 ```bash
-docker-compose up --build -d
+docker compose up --build -d
 ```
 
 📌 This will start PostgreSQL and the Node.js API inside Docker containers.
@@ -139,7 +139,7 @@ docker-compose up --build -d
 ## 2️⃣ Stop the Containers
 
 ```bash
-docker-compose down
+docker compose down
 ```
 
 ## 3️⃣ Check Running Containers
