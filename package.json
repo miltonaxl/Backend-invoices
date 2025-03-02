@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Invoice Management API with Express, TypeScript, and TypeORM",
   "main": "dist/app.js",
+  "license": "MIT",
   "author": {
     "name": "Milton Hernandez",
     "email": "miltonandresaxl@gmail.com",
