@@ -18,7 +18,8 @@ export const createInvoiceSchema = z.object({
 });
 
 export const invoiceIdSchema = z.object({
-    id: z.number()
-        .int('Invoice ID must be an integer')
-        .positive('Invoice ID must be a positive integer'),
+    id: z.string()
+        .refine((value) => !isNaN(Number(value)), {
+            message: 'Client ID must be a number',
+        }),
 });

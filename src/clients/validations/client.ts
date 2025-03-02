@@ -12,7 +12,9 @@ export const createClientSchema = z.object({
 export const updateClientSchema = createClientSchema.partial();
 
 export const clientIdSchema = z.object({
-    id: z.number()
-        .int('Client ID must be an integer')
-        .positive('Client ID must be a positive integer'),
+    id: z.string()
+        .refine((value) => !isNaN(Number(value)), {
+            message: 'Client ID must be a number',
+        }),
+
 });

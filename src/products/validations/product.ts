@@ -12,7 +12,8 @@ export const createProductSchema = z.object({
 export const updateProductSchema = createProductSchema.partial();
 
 export const productIdSchema = z.object({
-    id: z.number()
-        .int('Product ID must be an integer')
-        .positive('Product ID must be a positive integer'),
+    id: z.string()
+        .refine((value) => !isNaN(Number(value)), {
+            message: 'Client ID must be a number',
+        }),
 });

@@ -1,6 +1,7 @@
 import { Repository } from 'typeorm';
 import { AppDataSource } from '../config/database';
 import { Client } from './entity';
+import { BadRequestError, NotFoundError } from '../shared/errors';
 
 export class ClientsService {
     private readonly clientRepository: Repository<Client>;
@@ -14,10 +15,20 @@ export class ClientsService {
     }
 
     async getClientById(id: number): Promise<Client | null> {
-        return this.clientRepository.findOne({ where: { id } });
+        const clientResponse = await this.clientRepository.findOne({ where: { id } });
+
+        if (!clientResponse) throw new NotFoundError('Client not found');
+        return clientResponse;
     }
 
     async createClient(data: Partial<Client>): Promise<Client> {
+        const email = data.email;
+        const client = await this.clientRepository.findOne({ where: { email } });
+        if (client) {
+            throw new BadRequestError('Email already taken');
+        }
+
+
         const newClient = this.clientRepository.create(data);
         return this.clientRepository.save(newClient);
     }
@@ -28,6 +39,10 @@ export class ClientsService {
     }
 
     async deleteClient(id: number): Promise<boolean> {
+        const clientResponse = await this.clientRepository.findOne({ where: { id } });
+        if (!clientResponse) throw new NotFoundError('Client not found');
+
+
         const result = await this.clientRepository.delete(id);
         return result.affected !== 0;
     }

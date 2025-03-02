@@ -4,6 +4,7 @@ import { Invoice } from "./entity";
 import { InvoiceItem } from "./item.entity";
 import { Client } from "../clients/entity";
 import { Product } from "../products/entity";
+import { BadRequestError, NotFoundError } from "../shared/errors";
 
 export class InvoicesService {
     private readonly invoiceRepository: Repository<Invoice>;
@@ -24,14 +25,14 @@ export class InvoicesService {
     ): Promise<Invoice> {
         return await AppDataSource.transaction(async (manager: EntityManager) => {
             const client = await manager.getRepository(Client).findOne({ where: { id: clientId } });
-            if (!client) throw new Error('Client not found');
+            if (!client) throw new NotFoundError('Client not found');
 
             let total = 0;
             const invoiceItems: InvoiceItem[] = [];
 
             for (const item of items) {
                 const product = await manager.getRepository(Product).findOne({ where: { id: item.productId } });
-                if (!product) throw new Error(`Product with ID ${item.productId} not found`);
+                if (!product) throw new NotFoundError(`Product with ID ${item.productId} not found`);
 
                 const invoiceItem = manager.getRepository(InvoiceItem).create({
                     product,
@@ -58,7 +59,7 @@ export class InvoicesService {
                 } else {
                     console.error('❌ DIAN service failed:', error);
                 }
-                throw new Error('Failed to send invoice to DIAN');
+                throw new BadRequestError('Failed to send invoice to DIAN');
             }
 
             return savedInvoice;
@@ -83,7 +84,7 @@ export class InvoicesService {
         console.log('📡 Sending invoice to DIAN...');
 
         if (Math.random() < 0.3) {
-            throw new Error('DIAN service unavailable');
+            throw new BadRequestError('DIAN service unavailable');
         }
 
         console.log('✅ DIAN accepted the invoice');
