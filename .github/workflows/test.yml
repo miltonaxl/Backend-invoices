@@ -37,16 +37,6 @@ jobs:
       - name: 📦 Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: 🛠️ Run migrations (optional)
-        run: yarn typeorm migration:run
-        env:
-          NODE_ENV: test
-          DB_HOST: localhost
-          DB_PORT: 5432
-          DB_USER: test_user
-          DB_PASSWORD: test_password
-          DB_NAME: test_db
-
       - name: 🧪 Run tests
         run: yarn test:e2e
         env:
