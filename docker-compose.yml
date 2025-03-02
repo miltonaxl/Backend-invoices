@@ -19,6 +19,9 @@ services:
       DB_USER: payana
       DB_PASSWORD: payana-#12G#23
       DB_NAME: invoice_db
+      DB_PORT: 5432
+      PORT: 3000
+      SYNC_DB: true
     ports:
       - "3000:3000"
     depends_on:

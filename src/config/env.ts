@@ -13,7 +13,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const requiredEnv = ['DB_HOST', 'DB_PORT', 'DB_USER', 'DB_PASSWORD', 'DB_NAME', 'PORT'];
+const requiredEnv = ['DB_HOST', 'DB_PORT', 'DB_USER', 'DB_PASSWORD', 'DB_NAME', 'PORT', 'SYNC_DB'];
 requiredEnv.forEach((envVar) => {
     if (!process.env[envVar]) {
         console.error(`❌ Missing required environment variable: ${envVar}`);
@@ -29,4 +29,5 @@ export const settings = {
     DB_PASSWORD: process.env.DB_PASSWORD as string,
     DB_NAME: process.env.DB_NAME as string,
     PORT: Number(process.env.PORT) || 3000,
+    SYNC_DB: process.env.SYNC_DB === 'true',
 };

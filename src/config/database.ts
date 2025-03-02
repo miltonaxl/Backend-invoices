@@ -18,7 +18,7 @@ export const AppDataSource = new DataSource({
     username: isTestEnv ? undefined : settings.DB_USER,
     password: isTestEnv ? undefined : settings.DB_PASSWORD,
     entities: ['src/**/*entity.ts'],
-    synchronize: isTestEnv,
+    synchronize: settings.SYNC_DB,
     dropSchema: isTestEnv,
     logging: false,
 });
