@@ -6,9 +6,13 @@
  * 
  */
 import { DataSource } from 'typeorm';
+import path from 'path';
 import { settings } from './env';
 
 const isTestEnv = process.env.NODE_ENV === 'test';
+const PROJECT_ROOT = path.resolve(__dirname, '../');
+
+const entities_routes = PROJECT_ROOT + '/**/*entity.{js,ts}';
 
 export const AppDataSource = new DataSource({
     type: isTestEnv ? 'sqlite' : 'postgres',
@@ -17,12 +21,11 @@ export const AppDataSource = new DataSource({
     port: isTestEnv ? undefined : settings.DB_PORT,
     username: isTestEnv ? undefined : settings.DB_USER,
     password: isTestEnv ? undefined : settings.DB_PASSWORD,
-    entities: ['src/**/*entity.ts'],
+    entities: [entities_routes],
     synchronize: settings.SYNC_DB,
     dropSchema: isTestEnv,
     logging: false,
 });
-
 
 
 export const connectDatabase = async () => {
@@ -35,8 +38,9 @@ export const connectDatabase = async () => {
     if (!AppDataSource.isInitialized) {
         try {
             await AppDataSource.initialize();
+            console.log("🚀 Connected to the database.");
         } catch (error) {
-            console.log("❌  You're trying to connect to the database...");
+            console.log("❌  You're trying to connect to the database... \n", error);
         }
     }
 };
