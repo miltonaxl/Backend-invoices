@@ -17,7 +17,6 @@ const requiredEnv = ['DB_HOST', 'DB_PORT', 'DB_USER', 'DB_PASSWORD', 'DB_NAME', 
 requiredEnv.forEach((envVar) => {
     if (!process.env[envVar]) {
         console.error(`❌ Missing required environment variable: ${envVar}`);
-        process.exit(1);
     }
 });
 
