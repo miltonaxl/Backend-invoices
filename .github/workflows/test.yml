@@ -54,3 +54,5 @@ jobs:
           DB_USER: payana
           DB_PASSWORD: payana-#12G#23
           DB_NAME: invoice_db
+          SYNC_DB: true
+          PORT: 3000
