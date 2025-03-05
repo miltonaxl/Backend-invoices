@@ -38,7 +38,15 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: 🧪 Run tests
-        run: yarn test
+        # print environments before running tests
+        run: |
+          echo "NODE_ENV: $NODE_ENV"
+          echo "DB_HOST: $DB_HOST"
+          echo "DB_PORT: $DB_PORT"
+          echo "DB_USER: $DB_USER"
+          echo "DB_PASSWORD: $DB_PASSWORD"
+          echo "DB_NAME: $DB_NAME"
+          yarn test --coverage
         env:
           NODE_ENV: test
           DB_HOST: db
